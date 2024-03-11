@@ -1,0 +1,88 @@
+### March 11th 2024 ###
+
+# DR
+# R 4.2.3
+
+#############
+# load data #
+#############
+
+setwd("C:/Users/doria/Documents")
+
+#############
+# libraries #
+#############
+
+library(dplyr)
+library(ggplot2)
+library(sf)
+library(writexl)
+library(devtools)
+
+######################
+### Importing Data ### 
+######################
+
+# Using sf package
+
+# Unionized MPB .shp file
+mpb_union_shp <- read_sf("C:/Users/doria/Documents/RBR_bias_project/Data/mpb_single_row_per_year.shp") 
+insect <- mpb_union_shp
+names(insect) <- tolower(names(insect))
+colnames(insect)
+# List of mpb years
+unique(mpb$YEAR)
+
+# Fires .shp file
+fire <- read_sf("~/RBR_bias_project/Data/Albers_bc_nfdb/NFDB_poly_20210707_BC_albers.shp")
+colnames(fire)[colnames(fire) == 'year'] <- 'fire_year'
+names(fire) <- tolower(names(fire))
+colnames(fire)
+# List of fire years
+unique(fire$YEAR)
+
+# Intersect .shp file
+intersect <- read_sf("C:/Users/doria/Documents//RBR_bias_project/Data/fire_mpb_intersect.shp")
+colnames(intersect)
+
+# Insect stats .shp file
+insect_stats <- read_sf("C:/Users/doria/Documents//RBR_bias_project/Data/mpb_insect_stats.shp") 
+colnames(insect_stats)
+
+# Fire_area .shp file
+fire2_2d <- read_sf("C:/Users/doria/Documents/RBR_bias_project/Data/fire_mpb_fire2_area.shp") 
+colnames(fire2_2d)
+
+############################################################################################################################################################
+
+# Code for implementing quasi-experiment matched pairs design within fires that have areas that were affected and not affected by insect disturbance.
+
+#Steps:
+  
+# - Fork this repository (Github docs)
+
+# - run `renv::restore()` to reproduce `r` environment
+
+# - update the _targets.R file to include paths to files under the directories subheader 
+
+# - fire_path <- "<path/to/my/fire/shpfile>"
+
+fire <- read_sf("~/RBR_bias_project/Data/Albers_bc_nfdb/NFDB_poly_20210707_BC_albers.shp")
+colnames(fire)[colnames(fire) == 'year'] <- 'fire_year'
+names(fire) <- tolower(names(fire))
+
+# - defol_path <- "<path/to/my/insect/shpfile>"
+
+mpb_union_shp <- read_sf("C:/Users/doria/Documents/RBR_bias_project/Data/mpb_single_row_per_year.shp")
+insect <- mpb_union_shp
+names(insect) <- tolower(names(insect))
+
+# - RES_DIR <- "<path/to/my/results/folder>"
+
+RES_DIR <- "C:/Users/doria/Documents/RBR_bias_project/insect_fire_overlap_results"
+
+# - update the _targets.R file to input the max, min and gap year for intersection function.
+
+# - **make sure to save targets file**
+  
+#  - Run the pipeline, using tar_make() from the targets package
