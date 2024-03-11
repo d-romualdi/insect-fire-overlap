@@ -18,14 +18,14 @@ tar_source("src/overlap_intersection.R")
 tar_source("src/processing_tools.R")
 
 # directories
-fire_path <- "C:/Users/doria/Documents/RBR_bias_project/Data/Albers_bc_nfdb/NFDB_poly_20210707_BC_albers.shp"
-defol_path <- "C:/Users/doria/Documents/RBR_bias_project/Data/mpb_single_row_per_year.shp"
+fire_path <- "C:/Users/doria/Documents/RBR_bias_project/Data/Albers_bc_nfdb/NFDB_poly_20210707_BC_albers2.shp"
+defol_path <- "C:/Users/doria/Documents/RBR_bias_project/Data/mpb_single_row_per_year2.shp"
 RES_DIR <- "C:/Users/doria/Documents/RBR_bias_project/insect_fire_overlap_results"
 
 #intersection years
 max.year <- 2020 # ex. 2012
 min.year <- 1970 # ex. 1970
-gap_year <- 15 # ex. 15      # NOTE: overlap_intersection function has year_gap defined... change this to year_gap?
+gap_year <- 15 # ex. 15     
 
 # Replace the target list below with your own:
 list(
@@ -33,7 +33,7 @@ list(
   tar_target(name = fire.data, getData(fire.file)),
   tar_target(name = defol.file, defol_path, format = "file"),
   tar_target(name = defol.data, getData(defol.file)),
-  tar_target(intersection, overlap_intersection(fire.data, defol.data, max.year, min.year, gap)),
+  tar_target(intersection, overlap_intersection(fire.data, defol.data, max.year, min.year, gap_year)),
   tar_target(difference, overlap_difference(fire.data, intersection)),
   tar_target(data.int.v1, fire_area(intersection)),
   tar_target(data.diff.v1, fire_area(difference)),
@@ -46,3 +46,6 @@ list(
   tar_target(data.output, output_data(data.list, df.name, RES_DIR))
   )
 )
+
+# to visualize: tar_visnetwork()
+# to run: tar_make()
