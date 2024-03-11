@@ -67,15 +67,30 @@ colnames(fire2_2d)
 
 # - fire_path <- "<path/to/my/fire/shpfile>"
 
-fire <- read_sf("~/RBR_bias_project/Data/Albers_bc_nfdb/NFDB_poly_20210707_BC_albers.shp")
-colnames(fire)[colnames(fire) == 'year'] <- 'fire_year'
+fire <- read_sf("C:/Users/doria/Documents/RBR_bias_project/Data/Albers_bc_nfdb/NFDB_poly_20210707_BC_albers.shp")
 names(fire) <- tolower(names(fire))
+colnames(fire)[colnames(fire) == 'year'] <- 'fire_year'
+colnames(fire)
+
+# Converting fire to 2D in order to write to .shp file
+# fire is the multipolygon (3D)
+fire_2D <- sf::st_zm(fire) # dropping Z dimension
+
+# write fire with fire_year column
+st_write(fire_2D, "C:/Users/doria/Documents/RBR_bias_project/Data/Albers_bc_nfdb/NFDB_poly_20210707_BC_albers2.shp")
+fire2 <- read_sf("C:/Users/doria/Documents/RBR_bias_project/Data/Albers_bc_nfdb/NFDB_poly_20210707_BC_albers2.shp")
+
+# Checking if warning changed shape_area after removing Z value in fire sf object
+identical(fire$shape_area, fire2$shape_area)
 
 # - defol_path <- "<path/to/my/insect/shpfile>"
 
 mpb_union_shp <- read_sf("C:/Users/doria/Documents/RBR_bias_project/Data/mpb_single_row_per_year.shp")
 insect <- mpb_union_shp
-names(insect) <- tolower(names(insect))
+names(mpb_union_shp) <- tolower(names(mpb_union_shp))
+colnames(mpb_union_shp)
+st_write(mpb_union_shp, "C:/Users/doria/Documents/RBR_bias_project/Data/mpb_single_row_per_year2.shp")
+mpb_union_shp2 <- read_sf("C:/Users/doria/Documents/RBR_bias_project/Data/mpb_single_row_per_year2.shp")
 
 # - RES_DIR <- "<path/to/my/results/folder>"
 
