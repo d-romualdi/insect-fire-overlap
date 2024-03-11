@@ -1,4 +1,8 @@
 #
+
+setwd("C:/Users/doria/Documents/RBR_bias_project/insect-fire-overlap")
+
+#
 library(targets)
 library(tarchetypes) 
 
@@ -14,14 +18,14 @@ tar_source("src/overlap_intersection.R")
 tar_source("src/processing_tools.R")
 
 # directories
-fire_path <- ""
-defol_path <- ""
-RES_DIR <- ""
+fire_path <- "C:/Users/doria/Documents/RBR_bias_project/Data/Albers_bc_nfdb/NFDB_poly_20210707_BC_albers.shp"
+defol_path <- "C:/Users/doria/Documents/RBR_bias_project/Data/mpb_single_row_per_year.shp"
+RES_DIR <- "C:/Users/doria/Documents/RBR_bias_project/insect_fire_overlap_results"
 
 #intersection years
-max.year <-  # ex. 2012
-min.year <-  # ex. 1970
-gap_year <-  # ex. 15
+max.year <- 2020 # ex. 2012
+min.year <- 1970 # ex. 1970
+gap_year <- 15 # ex. 15      # NOTE: overlap_intersection function has year_gap defined... change this to year_gap?
 
 # Replace the target list below with your own:
 list(
