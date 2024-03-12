@@ -1,11 +1,11 @@
 #
-tar_make()
 
 setwd("C:/Users/doria/Documents/RBR_bias_project/insect-fire-overlap")
 
 #
 library(targets)
 library(tarchetypes) 
+
 
 # Set target options:
 tar_option_set(
@@ -20,7 +20,7 @@ tar_source("src/processing_tools.R")
 
 # directories
 fire_path <- "C:/Users/doria/Documents/RBR_bias_project/Data/Albers_bc_nfdb/NFDB_poly_20210707_BC_albers2.shp"
-defol_path <- "C:/Users/doria/Documents/RBR_bias_project/Data/mpb_single_row_per_year2.shp"
+defol_path <- "C:/Users/doria/Documents/RBR_bias_project/Data/mpb_single_row_per_year.shp"
 RES_DIR <- "C:/Users/doria/Documents/RBR_bias_project/insect_fire_overlap_results"
 
 #intersection years
@@ -48,5 +48,7 @@ list(
   )
 )
 
+
+# IN CONSOLE
 # to visualize: tar_visnetwork()
 # to run: tar_make()
