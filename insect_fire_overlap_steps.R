@@ -69,17 +69,21 @@ colnames(fire2_2d)
 
 fire <- read_sf("C:/Users/doria/Documents/RBR_bias_project/Data/Albers_bc_nfdb/NFDB_poly_20210707_BC_albers.shp")
 #names(fire) <- tolower(names(fire))
-colnames(fire)[colnames(fire) == 'FIRE_YEAR'] <- 'Fire_Year'
-colnames(fire)[colnames(fire) == 'FIRE_ID'] <- 'Fire_Id'
+colnames(fire)[colnames(fire) == 'YEAR'] <- 'Fire_Year'
+colnames(fire)[colnames(fire) == 'FIRE_ID'] <- 'Fire_ID'
 colnames(fire)
+fire2 <- fire[,c(2, 4, 29)]
+colnames(fire2)
 
 # Converting fire to 2D in order to write to .shp file
 # fire is the multipolygon (3D)
-# fire_2D <- sf::st_zm(fire) # dropping Z dimension
+fire_2D <- sf::st_zm(fire2) # dropping Z dimension
 
 # write fire with fire_year column
-st_write(fire, "C:/Users/doria/Documents/RBR_bias_project/Data/Albers_bc_nfdb/NFDB_poly_20210707_BC_albers2.shp")
+st_write(fire_2D, "C:/Users/doria/Documents/RBR_bias_project/Data/Albers_bc_nfdb/NFDB_poly_20210707_BC_albers2.shp")
 fire2 <- read_sf("C:/Users/doria/Documents/RBR_bias_project/Data/Albers_bc_nfdb/NFDB_poly_20210707_BC_albers2.shp")
+colnames(fire2)
+# [1] "Fire_ID"   "Fire_Year" "geometry" 
 
 # Checking if warning changed shape_area after removing Z value in fire sf object
 identical(fire$Shape_Area, fire2$Shape_Area)
@@ -92,6 +96,11 @@ names(mpb_union_shp) <- tolower(names(mpb_union_shp))
 colnames(mpb_union_shp2)
 st_write(mpb_union_shp, "C:/Users/doria/Documents/RBR_bias_project/Data/mpb_single_row_per_year2.shp")
 mpb_union_shp2 <- read_sf("C:/Users/doria/Documents/RBR_bias_project/Data/mpb_single_row_per_year2.shp")
+
+colnames(mpb_union_shp2)
+
+colnames(fire)[colnames(fire) == 'FIRE_YEAR'] <- 'Fire_Year'
+colnames(fire2)[colnames(fire2) == 'Fire_Id'] <- 'Fire_ID'
 
 # - RES_DIR <- "<path/to/my/results/folder>"
 
