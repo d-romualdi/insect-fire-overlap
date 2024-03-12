@@ -1,4 +1,5 @@
 #
+tar_make()
 
 setwd("C:/Users/doria/Documents/RBR_bias_project/insect-fire-overlap")
 
@@ -26,8 +27,6 @@ RES_DIR <- "C:/Users/doria/Documents/RBR_bias_project/insect_fire_overlap_result
 max.year <- 2020 # ex. 2012
 min.year <- 1970 # ex. 1970
 gap_year <- 15 # ex. 15   
-
-tar_make()
 
 # Replace the target list below with your own:
 list(
