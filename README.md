@@ -2,7 +2,7 @@ Code for implementing quasi-experiment matched pairs design within fires that ha
 
 Steps:
 
-- Fork this repository (Github docs)
+- Fork this repository [Github docs](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/fork-a-repo)
 
 - run `renv::restore()` to reproduce `r` environment
 
@@ -13,9 +13,15 @@ Steps:
 
 - update the _targets.R file to input the max, min and gap year for intersection function.
 
-- **make sure to save targets file**
+- **make sure to save _targets.R file after every change**
 
-- Run the pipeline, using tar_make() from the targets package
+- Run the pipeline, using `tar_make()` from the targets package
+
+
+**NOTES:**
+
+- Fire polygon shapefile must have column `Fire_ID`, `Fire_Year` (both case sensitive) and a geometry column. It is recommended that you remove all other columns. 
+- Insect disturbance shapefile must have a `Year` column with **one** row per year, and a geometry column. It is recommended that you remove all other columns.
 
 
 
