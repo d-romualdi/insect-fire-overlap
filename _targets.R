@@ -19,7 +19,7 @@ tar_source("src/overlap_intersection.R")
 tar_source("src/processing_tools.R")
 
 # directories
-fire_path <- "C:/Users/doria/Documents/RBR_bias_project/Data/Albers_bc_nfdb/NFDB_poly_20210707_BC_albers2.shp"
+fire_path <- "C:/Users/doria/Documents/RBR_bias_project/Data/Albers_bc_nfdb/fire_polys/NFDB_poly_20210707_BC_albers_new_valid_polys.shp"
 defol_path <- "C:/Users/doria/Documents/RBR_bias_project/Data/mpb_single_row_per_year.shp"
 RES_DIR <- "C:/Users/doria/Documents/RBR_bias_project/insect_fire_overlap_results"
 
@@ -52,3 +52,9 @@ list(
 # IN CONSOLE
 # to visualize: tar_visnetwork()
 # to run: tar_make()
+
+# use head(tar_read(object_name)) to check file path headers
+
+# Removing old _targets>objects
+# Delete multiple target objects
+# tar_delete(c(data.int.v1, defol.data, fire.data, intersection))
