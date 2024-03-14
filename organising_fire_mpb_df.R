@@ -56,10 +56,13 @@ fire_2D <- sf::st_zm(fire2) # dropping Z dimension
 colnames(fire_2D)
 
 st_write(fire_2D, "C:/Users/doria/Documents/RBR_bias_project/Data/Albers_bc_nfdb/NFDB_poly_20210707_BC_albers2.shp")
+st_write(fire_2D, "C:/Users/doria/Documents/RBR_bias_project/Data/Albers_bc_nfdb/fire_polys/NFDB_poly_20210707_BC_albers_new.shp")
+
 
 # Reading new fire polygon df
 fire_polys <- read_sf("C:/Users/doria/Documents/RBR_bias_project/Data/Albers_bc_nfdb/NFDB_poly_20210707_BC_albers2.shp")
-head(fire_polys)
+fire_polys_new <- read_sf("C:/Users/doria/Documents/RBR_bias_project/Data/Albers_bc_nfdb/fire_polys/NFDB_poly_20210707_BC_albers_new.shp")
+head(fire_polys_new)
 
 # Checking 
 identical(fire2$Fire_ID, fire_2D$Fire_ID)
@@ -67,10 +70,27 @@ identical(fire2$Fire_ID, fire_2D$Fire_ID)
 # str
 str(fire_polys)
 
+# Identify invalid geometries
+fire_polys_invalid_geoms <- fire_polys_new[!st_is_valid(fire_polys_new), ]
+fire_polys_invalid_geoms2 <- fire_polys_new[!st_is_valid(fire_polys_new), ]
+
+# Fix invalid geometries
+fire_polys_fixed_geoms <- st_make_valid(fire_polys_invalid_geoms)
+
+# Replace fixed geometries in the original object
+fire_polys_new[!st_is_valid(fire_polys_new), ] <- fire_polys_fixed_geoms
+
+# Write new fire polygon .shp
+st_write(fire_polys_new, "C:/Users/doria/Documents/RBR_bias_project/Data/Albers_bc_nfdb/fire_polys/NFDB_poly_20210707_BC_albers_new_valid_polys.shp")
+
+# Read in new fire polygons with valid geometries
+fire_polygons_valid_geoms <- read_sf("C:/Users/doria/Documents/RBR_bias_project/Data/Albers_bc_nfdb/fire_polys/NFDB_poly_20210707_BC_albers_new_valid_polys.shp")
 
 ### Unionized MPB df ###
 mpb_union_shp <- read_sf("C:/Users/doria/Documents/RBR_bias_project/Data/mpb_single_row_per_year.shp")
 colnames(mpb_union_shp)
+
+mpb_invalid_geoms <- mpb_union_shp[!st_is_valid(mpb_union_shp), ]
 
 # str
 str(mpb_union_shp)
